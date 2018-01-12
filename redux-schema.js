@@ -18,6 +18,8 @@
     option2,
   },
   posts: {
+    isFetching,
+    error,
     [postId]: {
       lastUpdated,
       info: {
@@ -31,13 +33,19 @@
     }
   },
   voteCount: {
-    [postId]: 0,
+    [postId]: {
+      option1: [uid],
+      option2: [uid],
+    }
   },
   userVoted: [
     [postId]: {
       selected: option1/2,
     }
-  ],
+  ],//listeners needed?
+  listeners: {
+    [listenersId]: true,
+  },
   feed: {
     isFetching,
     error,

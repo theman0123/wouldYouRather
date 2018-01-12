@@ -12,7 +12,11 @@
     timeToCompletion: .08
   },
   4: {
+    task: 'map out state of redux and database',
+    timeToCompletion: 1,
+  },
+  5: {
     task: '',
     timeToCompletion: 0,
-  }
+  },
 }
