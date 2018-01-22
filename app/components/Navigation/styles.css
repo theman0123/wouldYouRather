@@ -1,0 +1,18 @@
+.horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  color: #4a90e2;
+  font-size: 18px;
+}
+.horizontal ul {
+  display: flex;
+}
+
+.horizontal li {
+  list-style-type: none;
+  text-decoration: none;
+  padding: 0 10px;
+}

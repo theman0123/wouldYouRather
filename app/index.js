@@ -1,13 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
+import { Navigation } from 'components'
+import { HomeContainer, LoginContainer } from 'containers'
+import * as styles from 'sharedStyles/styles.css'
 
 function App () {
   return (
-    <div>
-
-      {'hello world'}
-
-    </div>
+    <Router>
+      <div>
+        <Navigation isAuthed={false}/>
+        
+        <Route exact path='/' component={HomeContainer} />
+        <Route path='/login' component={LoginContainer} />
+      </div>
+    </Router>
   )
 }
 

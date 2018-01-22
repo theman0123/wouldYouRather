@@ -16,7 +16,15 @@
     timeToCompletion: 1,
   },
   5: {
-    task: '',
+    task: 'react-router',
+    timeToCompletion: .5,
+  },
+  6: {
+    task: 'Home and Navigation',
+    timeToCompletion: 1.5,
+  },
+  7: {
+    task: 'authentication and firebase init',
     timeToCompletion: 0,
   },
 }
