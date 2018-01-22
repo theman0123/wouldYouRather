@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Login } from 'components'
 
-const LoginContainer = () => (
-  <Login />
-)
+class LoginContainer extends Component {
+  render() {
+    return (
+      <Login isFetching={false} onAuth={() => console.log('login')} />
+    )
+  }
+}
 
 export default LoginContainer
