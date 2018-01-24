@@ -43,7 +43,7 @@ const fetchingUserSuccess = (uid, user, timestamp) => {
   }
 }
 
-const removeFetchingUser = () => {
+export const removeFetchingUser = () => {
   return {
     type: REMOVE_FETCHING_USER,
   }
