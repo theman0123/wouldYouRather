@@ -24,7 +24,11 @@
     timeToCompletion: 1.5,
   },
   7: {
-    task: 'authentication and firebase init',
-    timeToCompletion: 0,
+    task: 'login button styled and console.logging.',
+    timeToCompletion: .5,
+  },
+  8: {
+    task: 'firebase and facebook authentication-- login button works',
+    timeToCompletion: 2.5,
   },
 }

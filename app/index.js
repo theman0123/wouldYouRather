@@ -1,24 +1,48 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {
-  BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom'
+import thunk from 'redux-thunk'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+import createHistory from 'history/createBrowserHistory'
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+
+import * as reducers from 'redux/modules'
 import { Navigation } from 'components'
-import { HomeContainer, LoginContainer } from 'containers'
+import { HomeContainer, LoginContainer, FeedContainer } from 'containers'
 import * as styles from 'sharedStyles/styles.css'
+
+const history = createHistory()
+const middleware = routerMiddleware(history)
+
+const store = createStore(combineReducers({
+  ...reducers,
+  router: routerReducer,
+  }),
+  compose(
+    applyMiddleware(thunk, middleware),
+    window.devToolsExtension
+      ? window.devToolsExtension()
+      : (f) => f
+  )
+)
 
 function App () {
   return (
-    <Router>
-      <div>
-        <Navigation isAuthed={false}/>
-        
-        <Route exact path='/' component={HomeContainer} />
-        <Route path='/login' component={LoginContainer} />
-      </div>
-    </Router>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <div>
+          <Navigation isAuthed={false}/>
+
+          <Route exact path='/' component={HomeContainer} />
+          <Route path='/login' component={LoginContainer} />
+          <Route path='/feed' component={FeedContainer} />        
+        </div>
+      </ConnectedRouter>
+    </Provider>
   )
 }
 
