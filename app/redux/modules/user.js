@@ -7,7 +7,7 @@ const FETCHING_USER_ERROR = 'FETCHING_USER_ERROR'
 const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS'
 const REMOVE_FETCHING_USER = 'REMOVE_FETCHING_USER'
 
-const authUser = (uid) => {
+export const authUser = (uid) => {
   return {
     type: AUTH_USER,
     uid,
@@ -34,7 +34,7 @@ const fetchingUserError = (error) => {
   }
 }
 
-const fetchingUserSuccess = (uid, user, timestamp) => {
+export const fetchingUserSuccess = (uid, user, timestamp) => {
   return {
     type: FETCHING_USER_SUCCESS,
     uid,
@@ -64,6 +64,15 @@ export function fetchAndHandleUserLogin () {
       .then(({user}) => saveUser(user))
       .then((user) => dispatch(authUser(user.uid)))
       .catch((error) => dispatch(fetchingUserError(error)))
+  }
+}
+
+export function logoutAndUnauth () {
+//  console.log('logged out')
+  return function (dispatch) {
+    logout()
+    dispatch(unauthUser())
+    
   }
 }
 
