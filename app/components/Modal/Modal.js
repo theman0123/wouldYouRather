@@ -84,6 +84,9 @@ Modal.propTypes = {
   user: object.isRequired,
   openModal: func.isRequired,
   closeModal: func.isRequired,
+  title: string.isRequired,
+  option1: string.isRequired,
+  option2: string.isRequired,
 }
 
 export default Modal

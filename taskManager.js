@@ -44,7 +44,11 @@
     timeToCompletion: 2.5,
   },
   12: {
-    task: '"/feed" get modal working. then /feed displaying--title, date, author, voted.',
-    timeToCompletion: .08,
+    task: 'modal setup from openModal thru submit function logging textarea values from modal store. (modal reducers and actions setup)',
+    timeToCompletion: 2,
+  },
+  13: {
+    task: 'build template for feed of posts/decisions',
+    timeToCompletion: .5,
   },
 }

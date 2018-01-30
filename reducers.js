@@ -261,10 +261,3 @@ function feed (state= initialState, action) {
       return state
   }
 }
-
-
-
-
-
-
-

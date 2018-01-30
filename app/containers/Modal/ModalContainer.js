@@ -21,7 +21,7 @@ function mapStateToProps ({modal, user}) {
   }
 }
 
-function mapDispatchToProps (dispatch, props) {
+function mapDispatchToProps (dispatch) {
   return bindActionCreators(modalActionCreators, dispatch)
 }
 
