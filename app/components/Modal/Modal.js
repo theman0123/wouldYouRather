@@ -18,9 +18,18 @@ const modalStyles = {
 }
 
 const Modal = (props) => {
+  
   function submitQuery () {
-    console.log('submit', props.title, props.option1, props.option2)
-    
+    const date = new Date(Date.now())
+    const monthDayYear = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+    const post = {
+      title: props.title,
+      option1: props.option1,
+      option2: props.option2,
+      author: props.user.name,
+      timestamp: monthDayYear,
+    }
+    return props.postFanout(post)
   }
 
   return (

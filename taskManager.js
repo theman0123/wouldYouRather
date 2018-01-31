@@ -51,4 +51,13 @@
     task: 'build template for feed of posts/decisions',
     timeToCompletion: .5,
   },
+  {
+    task: 'built post container and post component along with reducer for posts. and connected to redux',
+    time: 1.5,
+  },
+  {
+    task: 'built fanout for new post/modal. now saves to api/database',
+    time: 1.0,
+  }
+  }
 }

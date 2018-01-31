@@ -76,3 +76,15 @@ body, html {
   padding: 10px;
   cursor: pointer;
 }
+
+.loading {
+  text-align: center;
+  font-size: 33px;
+  font-weight: 300;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  font-size: 22;
+}

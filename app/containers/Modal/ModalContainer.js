@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import * as modalActionCreators from 'redux/modules/modal'
+import * as postActionCreators from 'redux/modules/posts'
 import { Modal } from 'components'
 
 function mapStateToProps ({modal, user}) {
@@ -22,7 +23,10 @@ function mapStateToProps ({modal, user}) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators(modalActionCreators, dispatch)
+  return bindActionCreators({
+    ...modalActionCreators,
+    ...postActionCreators,
+  }, dispatch)
 }
 
 export default connect(

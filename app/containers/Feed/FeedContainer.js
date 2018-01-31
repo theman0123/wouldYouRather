@@ -24,7 +24,6 @@ FeedContainer.propTypes = {
 }
 
 function mapStateToProps ({feed}) {
-  console.log(feed)
   return {
     postIds: feed.postIds,
     error: feed.error,
