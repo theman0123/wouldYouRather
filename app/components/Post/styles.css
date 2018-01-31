@@ -1,0 +1,25 @@
+.feedContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.postContainer {
+  display: flex;
+  flex-direction: column;
+  border-left: 3px solid coral;
+  padding: 5px;
+  margin: 15px;
+}
+
+.postTitle {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.postDateAndAuthor {
+  color: gray;
+}
+
