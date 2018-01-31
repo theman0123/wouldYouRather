@@ -1,28 +1,37 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
-import { Navigation } from 'components'
-import { HomeContainer, LoginContainer } from 'containers'
-import * as styles from 'sharedStyles/styles.css'
+import thunk from 'redux-thunk'
+import { Route } from 'react-router'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+import createHistory from 'history/createBrowserHistory'
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 
-function App () {
-  return (
-    <Router>
-      <div>
-        <Navigation isAuthed={false}/>
-        
-        <Route exact path='/' component={HomeContainer} />
-        <Route path='/login' component={LoginContainer} />
-      </div>
-    </Router>
+import * as reducers from 'redux/modules'
+import { MainContainer } from 'containers'
+
+const history = createHistory()
+const middleware = routerMiddleware(history)
+
+const store = createStore(combineReducers({
+  ...reducers,
+  router: routerReducer,
+  }),
+  compose(
+    applyMiddleware(thunk, middleware),
+    window.devToolsExtension
+      ? window.devToolsExtension()
+      : (f) => f
   )
-}
+)
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <div>
+      <ConnectedRouter history={history}>
+        <Route path='/' component={MainContainer} />
+      </ConnectedRouter>
+    </div>
+  </Provider>,
   document.getElementById('app')
 )

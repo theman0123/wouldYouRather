@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+
 import { horizontal, container, navContainer } from './styles.css'
 
 const ActionLinks = ({isAuthed}) => {
@@ -11,7 +13,7 @@ const ActionLinks = ({isAuthed}) => {
     : null
 }
 const NavLinks = ({isAuthed}) => {
-  return isAuthed === true
+  return isAuthed
     ? (
       <ul>
         <li>{'New Decision'}</li>
@@ -23,12 +25,15 @@ const NavLinks = ({isAuthed}) => {
         <li><Link to='/login'>{'Login'}</Link></li>
       </ul>)
 }
-
 const Navigation = ({isAuthed}) => (
   <div className={horizontal}>
     <ActionLinks isAuthed={isAuthed} />
     <NavLinks isAuthed={isAuthed} />
   </div>
 )
+
+Navigation.proptypes = {
+  isAuthed: PropTypes.bool.isRequired,
+}
 
 export default Navigation
