@@ -10,9 +10,7 @@ import { Post } from 'components'
 class PostContainer extends Component {
   render() {
     return (
-      <Post
-        onClick={() => console.log('post clicked')}
-        {...this.props}/>
+      <Post {...this.props} />
     )
   }
 }

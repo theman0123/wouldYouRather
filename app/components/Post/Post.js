@@ -22,7 +22,6 @@ const Post = (props) => (
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
 //  numberOfVotes: PropTypes.number.isRequired,
 }
 
