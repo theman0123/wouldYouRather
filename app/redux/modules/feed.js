@@ -1,3 +1,5 @@
+import { fetchPostsIds } from 'helpers/api'
+import { fetchingPostsSuccess } from './posts'
 const FETCHING_FEED = 'FETCHING_FEED'
 const FETCHING_FEED_ERROR = 'FETCHING_FEED_ERROR'
 const FETCHING_FEED_SUCCESS = 'FETCHING_FEED_SUCCESS'
@@ -17,24 +19,39 @@ const fetchingFeedError = (error) => {
   }
 }
 
-const fetchingFeedSuccess = (postIds) => {
+const fetchingFeedSuccess = (postsIds) => {
   return {
     type: FETCHING_FEED_SUCCESS,
-    postIds,
+    postsIds,
   }
 }
+
+export const fetchAndHandlePostsIds = () => {
+  return function (dispatch) {
+    dispatch(fetchingFeed())
+    fetchPostsIds()
+      .then((postsIds) => {
+        const sortedPostsIds = Object.keys(postsIds).sort((a, b) => postsIds[b].timestamp - postsIds[a].timestamp)
+        
+        dispatch(fetchingPostsSuccess(postsIds))
+        return dispatch(fetchingFeedSuccess(sortedPostsIds))
+      })
+      .catch((error) => dispatch(fetchingFeedError(error)))
+  }
+}
+
 //do i need this?
-const addNewPostToFeed = (newPostId) => {
-  return {
-    type: ADD_NEW_POST_TO_FEED,
-    newPostId,
-  }
-}
+//const addNewPostToFeed = (newPostId) => {
+//  return {
+//    type: ADD_NEW_POST_TO_FEED,
+//    newPostId,
+//  }
+//}
 
 const initialState = {
   isFetching: true,
   error: '',
-  postIds: [],
+  postsIds: [],
 }
 
 export default function feed (state= initialState, action) {
@@ -53,8 +70,8 @@ export default function feed (state= initialState, action) {
     case FETCHING_FEED_SUCCESS:
       return {
         ...state,
-        isFetching: true,
-        postIds,
+        isFetching: false,
+        postsIds: action.postsIds,
       }
     case ADD_NEW_POST_TO_FEED:
       return {

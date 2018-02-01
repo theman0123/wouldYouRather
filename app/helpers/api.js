@@ -22,3 +22,8 @@ export function savePost (post) {
     saveVoteCount(postId)
   ]).then(() => ({...post, postId}))
 }
+
+export function fetchPostsIds () {
+  return ref.child('posts').once('value')
+    .then((snapshot) => snapshot.val() || {}) 
+  }

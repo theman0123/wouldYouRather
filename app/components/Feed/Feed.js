@@ -13,28 +13,21 @@ const Feed = (props) => {
         {'Decisions'}
       </div>
       
-      <PostContainer />
       
-      {props.isFetching ? <p className={loading}>{'loading'}</p> : null}
+      {props.isFetching ? <p className={loading}>{'loading'}</p> : null
+      }
       
-      {props.postIds > 0
-        ? (
-         <div className={feedContainer}>
-          <div className={subHeader}>
-            {'Decisions'}
-          </div>
-          {/*for loop this html template... key = date and Author?*/}
-
-          <div className={postContainer}>
-            <span className={postTitle}>{'Made up Title'}</span>
-            <span className={postDateAndAuthor}>{'01/12/18'} {'by'} {'Some Author'}</span>
-          </div>
-        </div>)
-         :  props.isFetching
-           ?  null
-           :  (
-           <p className={feedContainer}>{'Oh, geez. There aren\'t any posts yet...'}</p>)
-       }
+      {props.postsIds.map((id) => (
+          <PostContainer 
+            postId={id}
+            key={id}/>
+      ))}
+                             
+      {props.postsIds > 0
+         ?  (
+         <p className={feedContainer}>{'Oh, geez. There aren\'t any posts yet...'}</p>)
+         :  null
+      }
 
        {props.error ? <p className={error}>{props.error}</p> : null} 
     </div>
@@ -44,7 +37,7 @@ const Feed = (props) => {
 Feed.propTypes = {
   error: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  postsIds: PropTypes.string.isRequired,
+  postsIds: PropTypes.array.isRequired,
 }
 
 export default Feed

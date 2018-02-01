@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { HomeContainer, LoginContainer, FeedContainer, LogoutContainer } from 'containers'
+import { HomeContainer, LoginContainer, FeedContainer, LogoutContainer, PostDetailsContainer } from 'containers'
 import { Route, Redirect } from 'react-router-dom'
 
 import * as styles from 'sharedStyles/styles.css'
@@ -20,7 +20,9 @@ const Main = (props) => {
       <Route exact path='/login' component={LoginContainer} />
       <Route exact path='/logout' component={LogoutContainer} />
 
-      <PrivateRoute path='/feed' component={FeedContainer} isAuthed={props.isAuthed}/>
+      <PrivateRoute path='/feed' component={FeedContainer} isAuthed={props.isAuthed} />
+      <PrivateRoute path='/post/:postId' component={PostDetailsContainer} isAuthed={props.isAuthed} />
+      
     </div>
   )
 }

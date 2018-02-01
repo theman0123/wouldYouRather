@@ -15,6 +15,12 @@
   composes: baseTextAreaContainer from 'sharedStyles/styles.css';
 }
 
+.titleInputContainer {
+  composes: baseTextAreaContainer from 'sharedStyles/styles.css';
+  height: 37px;
+  overflow-y: hidden;
+}
+
 .Input {
   composes: baseTextArea from 'sharedStyles/styles.css';
   border-width: 0;

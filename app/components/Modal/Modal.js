@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { default as ReactModal } from 'react-modal'
 //import { formatDuck } from 'helpers/utils'
 import {
-  Top, pointer, InputContainer,
+  Top, pointer, InputContainer, titleInputContainer,
   Input, submitBtn, darkBtn } from './styles.css'
 
 const modalStyles = {
@@ -20,14 +20,12 @@ const modalStyles = {
 const Modal = (props) => {
   
   function submitQuery () {
-    const date = new Date(Date.now())
-    const monthDayYear = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
     const post = {
       title: props.title,
       option1: props.option1,
       option2: props.option2,
       author: props.user.name,
-      timestamp: monthDayYear,
+      timestamp: Date.now(),
     }
     return props.postFanout(post)
   }
@@ -46,7 +44,7 @@ const Modal = (props) => {
           <span>{'New Poll!'}</span>
           <span onClick={props.closeModal} className={pointer}>{'X'}</span>
         </div>
-        <div className={InputContainer}>
+        <div className={titleInputContainer}>
           <textarea
             onChange={(e) => props.updateModalTitle(e.target.value)}
             value={props.title}
@@ -62,7 +60,7 @@ const Modal = (props) => {
             maxLength={140}
             type='text'
             className={Input}
-            placeholder="What's on your mind?" />
+            placeholder="Red" />
         </div>
         <div className={InputContainer}>
           <textarea
@@ -71,7 +69,7 @@ const Modal = (props) => {
             maxLength={140}
             type='text'
             className={Input}
-            placeholder="What's on your mind?" />
+            placeholder="Or Blue?" />
         </div>
         <button
           className={submitBtn}

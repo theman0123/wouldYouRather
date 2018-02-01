@@ -10,22 +10,23 @@ import { Post } from 'components'
 class PostContainer extends Component {
   render() {
     return (
-      <Post {...this.props}/>
+      <Post
+        onClick={() => console.log('post clicked')}
+        {...this.props}/>
     )
   }
 }
 
 PostContainer.propTypes = {
-  id: PropTypes.string.isRequired,
-  key: PropTypes.string.isRequired,
+  postId: PropTypes.string.isRequired,
 }
-//posts[props.postsId]
+
 function mapStateToProps ({posts}, props) {
   return {
-    post: {id: '123', author: 'spencer jones', title: 'new', option1: 'one', option2: 'two', timestamp: Date.now()},
-    hideLikeCount: true,
-//    voted: ,
-    numberOfVotes: 2,
+    post: posts[props.postId],
+//    hideLikeCount: true,
+//    userVoted: ,
+//    numberOfVotes: 2,
   }
 }
 
