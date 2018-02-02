@@ -1,37 +1,37 @@
-import { fetchUserVoted } from 'helpers/api.js'
+import { fetchUserVoted, incrementVoteCount, decrementVoteCount } from 'helpers/api.js'
 
 const FETCHING_USER_VOTED = 'FETCHING_USER_VOTED'
 const FETCHING_USER_VOTED_ERROR = 'FETCHING_USER_VOTED_ERROR'
 const FETCHING_USER_VOTED_SUCCESS = 'FETCHING_USER_VOTED_SUCCESS'
-const ADD_VOTE = 'ADD_VOTE'
+export const ADD_VOTE = 'ADD_VOTE'
 
 // userVoted
 
-export const fetchingUserVoted = () => {
+const fetchingUserVoted = () => {
   return {
     type: FETCHING_USER_VOTED,
   }
 }
 
-export const fetchingUserVotedError = (error) => {
+const fetchingUserVotedError = (error) => {
   return {
     type: FETCHING_USER_VOTED_ERROR,
     error: 'Error Fetching User Votes... Or the user has none',
   }
 }
 
-export const fetchingUserVotedSuccess = (userVotes) => {
+const fetchingUserVotedSuccess = (userVotes) => {
   return {
     type: FETCHING_USER_VOTED_SUCCESS,
     userVoted,
   }
 }
 //add vote should cancel a pre-existing vote (if exists)
-export const addVote = (postId, option) => {
+const addVote = (postId, option) => {
   return {
     type: ADD_VOTE,
     postId,
-    option,//object with selected: option1/2
+    option,
   }
 }
 
@@ -46,14 +46,18 @@ export function setUserVoted () {
       .catch((error) => dispatch(fetchingUserVotedError(error)))
   }
 }
-
+///need to change this
+//should be an array of database.voteCount.postId.1/2: [uid, uid, uid]
+//switching votes should remove user from one array and adding to another.
+//voteCount should just pull array length and add one.
 export function addAndHandleUserVote (postId, option) {
   return function (dispatch, getState) {
     const uid = getState().user.authedId
     const userVote = getState().userVoted.postId
     const changeSelected = option === 1 ? 2 : 1
-    
-    !userVote ? dispatch(addVote(postId, option))
+    console.log(postId, option, changeSelected, userVote)
+    userVote === undefined
+      ? (dispatch(addVote(postId, option)), incrementVoteCount(postId, option))
       : userVote.option === option ? null
         : (
           dispatch(addVote(postId, option)),
@@ -74,7 +78,7 @@ function manageUserVoted (state = initialManageUserVotedState, action) {
     case ADD_VOTE:
       return {
         ...state,
-        selected: action.postId.selected
+        selected: action.option
       }
     default:
       return state
@@ -103,7 +107,7 @@ export default function userVoted (state= initialState, action) {
     case FETCHING_USER_VOTED_SUCCESS:
       return {
         ...state,
-        userVotes, //[{postId: selected: option1/2}]
+        userVotes,
       }
     case ADD_VOTE:
       return {

@@ -1,5 +1,5 @@
 import { fetchVoteCount } from 'helpers/api'
-import { ADD_VOTE } from './voteCount'
+import { ADD_VOTE } from './userVoted'
 
 const FETCHING_VOTE_COUNT = 'FETCHING_VOTE_COUNT'
 const FETCHING_VOTE_COUNT_SUCCESS = 'FETCHING_VOTE_COUNT_SUCCESS'
@@ -35,6 +35,24 @@ export function initFetchVoteCount () {
   }
 }
   
+function count (state = {
+  1: 0,
+  2: 0,
+}, action) {
+  
+  switch(action.type) {
+    case ADD_VOTE:
+      console.log(state, action)
+      
+      return {
+        ...state,
+        [action.option]: state[action.option] + 1,
+      }
+    default:
+      return state
+  }
+}
+
 const initialState = {
   isFetching: false,
   error: '', 
@@ -58,11 +76,9 @@ export default function voteCount (state= initialState, action) {
         voteCount,
       }
     case ADD_VOTE:
-      return typeof state[action.postId] === 'undefined'
-        ? state
-        : {
-          ...state,
-          [action.postId]: count(state[action.postId], action),
+      return {
+        ...state,
+        [action.postId]: count(state[action.postId], action),
         }
     default:
       return state
