@@ -4,6 +4,7 @@ import { firebaseAuth } from 'config/constants'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as userActionCreators from 'redux/modules/user'
+import * as userVotedActionCreators from 'redux/modules/userVoted'
 
 import { Main, Navigation } from 'components'
 
@@ -19,6 +20,7 @@ class MainContainer extends Component {
         }
         this.props.authUser(user.uid)
         this.props.fetchingUserSuccess(user.uid, userInfo, Date.now())
+        this.props.setUserVoted()
       }
       else this.props.removeFetchingUser()
     })
@@ -35,7 +37,8 @@ class MainContainer extends Component {
 }
 
 export default connect(
-  ({user}) => ({isAuthed: user.isAuthed}), (dispatch) => bindActionCreators(
-  userActionCreators,
-  dispatch
+  ({user}) => ({isAuthed: user.isAuthed}), (dispatch) => bindActionCreators({
+  ...userActionCreators,
+  ...userVotedActionCreators,
+  }, dispatch
 ))(MainContainer)

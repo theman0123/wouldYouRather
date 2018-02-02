@@ -5,6 +5,12 @@ import { optionsContainer, option1, round, option2 } from './styles.css'
 
 function PostDetails ({post}) {
   console.log(post)
+  //pass click to container. have container connect to api 
+  //send a userVoted
+  //send a voteCount
+  //build ternary and on click display vote totals
+  //display green circle for vote cast
+  //go to feed and display same green circle on float right
   function option1Click () {
     console.log('option1 clicked')
   }
