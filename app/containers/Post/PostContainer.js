@@ -19,12 +19,13 @@ PostContainer.propTypes = {
   postId: PropTypes.string.isRequired,
 }
 
-function mapStateToProps ({posts}, props) {
+function mapStateToProps ({user, posts, userVoted}, props) {
+  const postId = props.postId
+  const uid = user.authedId
+  const votes = userVoted[uid]
   return {
-    post: posts[props.postId],
-//    hideLikeCount: true,
-//    userVoted: ,
-//    numberOfVotes: 2,
+    post: posts[postId],
+    hasVoted: userVoted[uid],
   }
 }
 

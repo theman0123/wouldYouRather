@@ -5,7 +5,7 @@ import { optionsContainer, option1, roundOr, option2, vote, percentage, agree, o
 //add in vote percentage per option
 //and mark which div the user clicked on
 const PostDetails = (props) => {
-  console.log(props)
+
   return (
     <div className={container}>
       <h3 className={subHeader}>{'Would You Rather...'}</h3>

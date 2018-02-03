@@ -36,6 +36,8 @@ export function fetchUserVoted (uid) {
 export function saveUserVote (uid, postId, option) {
   return ref.child(`userVoted/${uid}/${postId}`).set({selected: option})
 }
+
+
 //from now on always start on 0!
 //we could then just run a simple reduce function like so:
 //      snapshot.val()
@@ -50,7 +52,6 @@ export function fetchVoteCount (postId) {
     .then((snapshot) => ({1: snapshot.val()[1], 2: snapshot.val()[2],}) || {})
 }
 
-//option = 1/2
 export function incrementVoteCount (postId, option) {
   return ref.child(`voteCount/${postId}/${option}`)
     .transaction((currentValue = 0) => currentValue + 1)
@@ -59,4 +60,9 @@ export function incrementVoteCount (postId, option) {
 export function decrementVoteCount (postId, option) {
   return ref.child(`voteCount/${postId}/${option}`)
     .transaction((currentValue = 0) => currentValue - 1)
+}
+
+export function fetchPost (postId) {
+  return ref.child(`/posts/${postId}`).once('value')
+    .then((snapshot) => snapshot.val())
 }

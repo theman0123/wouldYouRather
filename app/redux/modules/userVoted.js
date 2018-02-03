@@ -1,11 +1,9 @@
-import { fetchUserVoted, incrementVoteCount, decrementVoteCount } from 'helpers/api.js'
+import { fetchUserVoted, incrementVoteCount, decrementVoteCount, saveUserVote } from 'helpers/api.js'
 
 const FETCHING_USER_VOTED = 'FETCHING_USER_VOTED'
 const FETCHING_USER_VOTED_ERROR = 'FETCHING_USER_VOTED_ERROR'
 const FETCHING_USER_VOTED_SUCCESS = 'FETCHING_USER_VOTED_SUCCESS'
 export const ADD_VOTE = 'ADD_VOTE'
-
-// userVoted
 
 const fetchingUserVoted = () => {
   return {
@@ -20,13 +18,14 @@ const fetchingUserVotedError = (error) => {
   }
 }
 
-const fetchingUserVotedSuccess = (userVotes) => {
+const fetchingUserVotedSuccess = (uid, userVotes) => {
   return {
     type: FETCHING_USER_VOTED_SUCCESS,
-    userVoted,
+    uid,
+    userVotes,
   }
 }
-//add vote should cancel a pre-existing vote (if exists)
+
 const addVote = (postId, option) => {
   return {
     type: ADD_VOTE,
@@ -42,7 +41,7 @@ export function setUserVoted () {
     dispatch(fetchingUserVoted())
 
     fetchUserVoted(uid)
-      .then((userVotes) => dispatch(fetchingUserVotedSuccess(userVotes)))
+      .then((userVotes) => dispatch(fetchingUserVotedSuccess(uid, userVotes)))
       .catch((error) => dispatch(fetchingUserVotedError(error)))
   }
 }
@@ -55,13 +54,15 @@ export function addAndHandleUserVote (postId, option) {
     const uid = getState().user.authedId
     const userVote = getState().userVoted.postId
     const changeSelected = option === 1 ? 2 : 1
-    console.log(postId, option, changeSelected, userVote)
+
     userVote === undefined
-      ? (dispatch(addVote(postId, option)), incrementVoteCount(postId, option))
+      ? (dispatch(addVote(postId, option)), incrementVoteCount(postId, option),
+      saveUserVote(uid, postId, option))
       : userVote.option === option ? null
         : (
           dispatch(addVote(postId, option)),
-          decrementVoteCount(postId, changeSelected), incrementVoteCount(postId, option))
+          decrementVoteCount(postId, changeSelected), incrementVoteCount(postId, option),
+          setUserVoted(uid, postId, option))
             .catch((error) => {
               console.warn(error)
               dispatch(addVote(postId, null))
@@ -108,7 +109,7 @@ export default function userVoted (state= initialState, action) {
       return {
         ...state,
         isFetching: false,
-        userVotes,
+        [action.uid]: action.userVotes,
       }
     case ADD_VOTE:
       return {

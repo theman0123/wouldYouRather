@@ -19,7 +19,6 @@ const fetchingVoteCountError = (error) => {
 }
 
 const fetchingVoteCountSuccess = (postId, voteCount) => {
-  console.log(voteCount)
   return {
     type: FETCHING_VOTE_COUNT_SUCCESS,
     postId,

@@ -30,11 +30,14 @@ FeedContainer.propTypes = {
   fetchAndHandlePostsIds: PropTypes.func.isRequired,
 }
 
-function mapStateToProps ({feed}) {
+function mapStateToProps ({user, feed, userVoted}) {
+  const uid = user.authedId
+  
   return {
     postsIds: feed.postsIds,
     error: feed.error,
     isFetching: feed.isFetching,
+    userVoted: userVoted[uid]
   }
 }
 
