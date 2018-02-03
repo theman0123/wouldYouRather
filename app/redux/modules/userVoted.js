@@ -107,6 +107,7 @@ export default function userVoted (state= initialState, action) {
     case FETCHING_USER_VOTED_SUCCESS:
       return {
         ...state,
+        isFetching: false,
         userVotes,
       }
     case ADD_VOTE:

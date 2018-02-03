@@ -7,8 +7,9 @@
 
 .option1 {
   display: flex;
+  flex-direction: column;
+  text-align: center;
   justify-content: center;
-  align-items: center;
   background-color: lightblue;
   color: white;
   height: 200px;
@@ -25,7 +26,7 @@
   padding-right: 5px;
 }
 
-.round {
+.roundOr {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,4 +36,33 @@
   color: white;
   height: 50px;
   width: 50px;
+}
+
+.vote {
+  position: absolute;
+  border-radius: 50%;
+  background-color: darkgreen;
+  height: 30px;
+  width: 30px;
+/*
+  top: 0;
+  left: 5px;
+*/
+}
+
+.percentage {
+  color: gray;
+  font-size: 50px;
+  font-weight: 200;
+  text-align: center;
+}
+
+.agree {
+  color: darkgray;
+  font-size: 18px;
+}
+
+.originalQuestion {
+  color: inherit;
+  font-size: 12px;
 }

@@ -10,7 +10,10 @@ import { PostDetails } from 'components'
 class PostDetailsContainer extends Component {
   
   componentDidMount () {
-    //get voteCount
+//    console.log(this.props, this.props.match.params.postId)
+    const postId = this.props.match.params.postId
+    
+    this.props.initFetchVoteCount(postId)
   }
   
   option1Clicked (option) {
@@ -26,9 +29,7 @@ class PostDetailsContainer extends Component {
     return (
       <PostDetails 
         post={this.props.post}
-        option1Clicked={() => {
-          this.props.addAndHandleUserVote(postId, 1)
-        }}
+        option1Clicked={() =>  this.props.addAndHandleUserVote(postId, 1)}
         option2Clicked={() => this.props.addAndHandleUserVote(postId, 2)}/>
     )
   }
@@ -38,11 +39,12 @@ PostDetailsContainer.propTypes = {
   post: PropTypes.object.isRequired,
 }
 
-function mapStateToProps ({posts}, props) {
+function mapStateToProps ({posts, voteCount, userVoted}, props) {
   const id = props.match.params.postId
-  
+
   return {
     post: posts[id],
+    
   }
 }
 

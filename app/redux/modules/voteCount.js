@@ -18,19 +18,21 @@ const fetchingVoteCountError = (error) => {
   }
 }
 
-const fetchingVoteCountSuccess = (voteCount) => {
+const fetchingVoteCountSuccess = (postId, voteCount) => {
+  console.log(voteCount)
   return {
     type: FETCHING_VOTE_COUNT_SUCCESS,
+    postId,
     voteCount,
   }
 }
 
-export function initFetchVoteCount () {
+export function initFetchVoteCount (postId) {
   return function (dispatch) {
     dispatch(fetchingVoteCount())
     
     fetchVoteCount(postId)
-      .then((voteCount) => dispatch(fetchingVoteCountSuccess(voteCount)))
+      .then((voteCount) => dispatch(fetchingVoteCountSuccess(postId, voteCount)))
       .catch((error) => dispatch(fetchingVoteCountError(error)))
   }
 }
@@ -69,11 +71,13 @@ export default function voteCount (state= initialState, action) {
       return {
         ...state,
         error: action.error,
+        isFetching: false,
       }
     case FETCHING_VOTE_COUNT_SUCCESS:
       return {
         ...state,
-        voteCount,
+        isFetching: false,
+        [action.postId]: action.voteCount,
       }
     case ADD_VOTE:
       return {
