@@ -74,5 +74,6 @@
   {
     task: 'fixed voteCount and userVoted to 1) set data on database, 2) set data in store. I decided to change the method for how it\'s currently operation.'
     time: 2.0,
-  }
+  },
+  extraTime: 4 + 3 +
 }

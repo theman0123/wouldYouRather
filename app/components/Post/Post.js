@@ -11,7 +11,8 @@ const formatDate = (timestamp) => {
   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
 }
 
-//get span/voteIndicator working
+//practicing in-line styles
+//looks messy...
 const Post = (props) => {
 const hasBallot = props.hasVoted
   ? Object.keys(props.hasVoted).filter(id => id === props.post.postId)
@@ -23,7 +24,11 @@ const hasBallot = props.hasVoted
       <span className={postTitle}>{props.post.title}</span>
       <span className={postDateAndAuthor}>{formatDate(props.post.timestamp)} {'by'} {props.post.author}</span>
     </div>
-    <span style={hasBallot ? {backgroundColor: 'green', height: '20px', width: '20px', borderRadius: '50%'}: null} />
+    <span style={!hasBallot
+      ? null
+      : hasBallot.length > 0
+        ? {backgroundColor: 'lightgreen', height: '20px', width: '20px', borderRadius: '50%'}
+        : null} />
   </Link>
   )
 }

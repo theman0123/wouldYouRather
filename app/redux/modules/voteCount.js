@@ -43,8 +43,6 @@ function count (state = {
   
   switch(action.type) {
     case ADD_VOTE:
-      console.log(state, action)
-      
       return {
         ...state,
         [action.option]: state[action.option] + 1,

@@ -26,9 +26,10 @@ const fetchingUserVotedSuccess = (uid, userVotes) => {
   }
 }
 
-const addVote = (postId, option) => {
+const addVote = (uid,postId, option) => {
   return {
     type: ADD_VOTE,
+    uid,
     postId,
     option,
   }
@@ -56,16 +57,16 @@ export function addAndHandleUserVote (postId, option) {
     const changeSelected = option === 1 ? 2 : 1
 
     userVote === undefined
-      ? (dispatch(addVote(postId, option)), incrementVoteCount(postId, option),
+      ? (dispatch(addVote(uid, postId, option)), incrementVoteCount(postId, option),
       saveUserVote(uid, postId, option))
       : userVote.option === option ? null
         : (
-          dispatch(addVote(postId, option)),
+          dispatch(addVote(uid, postId, option)),
           decrementVoteCount(postId, changeSelected), incrementVoteCount(postId, option),
           setUserVoted(uid, postId, option))
             .catch((error) => {
               console.warn(error)
-              dispatch(addVote(postId, null))
+              dispatch(addVote(uid, postId, null))
             })
   }
 }
@@ -79,7 +80,7 @@ function manageUserVoted (state = initialManageUserVotedState, action) {
     case ADD_VOTE:
       return {
         ...state,
-        selected: action.option
+        [action.postId]: {selected: action.option}
       }
     default:
       return state
@@ -114,7 +115,7 @@ export default function userVoted (state= initialState, action) {
     case ADD_VOTE:
       return {
         ...state,
-        [action.postId]: manageUserVoted(state[action.postId], action),
+        [action.uid]: manageUserVoted(state[action.uid], action),
       }
     default:
       return state

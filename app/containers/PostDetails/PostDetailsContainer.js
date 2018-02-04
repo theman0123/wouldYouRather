@@ -34,23 +34,33 @@ class PostDetailsContainer extends Component {
       <PostDetails 
         post={this.props.post}
         option1Clicked={() =>  this.props.addAndHandleUserVote(postId, 1)}
-        option2Clicked={() => this.props.addAndHandleUserVote(postId, 2)}/>
+        option2Clicked={() => this.props.addAndHandleUserVote(postId, 2)}
+        voteCount={this.props.voteCount}
+        userVoted={this.props.userVoted}/>
     )
   }
 }
 
 PostDetailsContainer.propTypes = {
   post: PropTypes.object.isRequired,
+//  userVoted: PropTypes.number.isRequired,
+//  postAlreadyFetched: PropTypes.bool.isRequired,
+  voteCount: PropTypes.shape({
+    0: PropTypes.number,
+    1: PropTypes.number,
+  })
 }
 
-function mapStateToProps ({posts, voteCount, userVoted}, props) {
+function mapStateToProps ({user, posts, voteCount, userVoted}, props) {
+  const uid = user.authedId
   const id = props.match.params.postId
-  
+  const votes = userVoted[uid]
+
   return {
     post: posts[id],
     voteCount: voteCount[id],
-//    userVoted: userVoted[id].selected,
-    postAlreadFetched: !!posts[id]
+    userVoted: votes[id] ? votes[id].selected : null,
+//    postAlreadFetched: !!posts[id]
   }
 }
 

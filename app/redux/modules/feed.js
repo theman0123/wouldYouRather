@@ -3,7 +3,7 @@ import { fetchingPostsSuccess } from './posts'
 const FETCHING_FEED = 'FETCHING_FEED'
 const FETCHING_FEED_ERROR = 'FETCHING_FEED_ERROR'
 const FETCHING_FEED_SUCCESS = 'FETCHING_FEED_SUCCESS'
-const ADD_NEW_POST_TO_FEED = 'ADD_NEW_POST_TO_FEED'
+export const ADD_NEW_POST_TO_FEED = 'ADD_NEW_POST_TO_FEED'
 
 const fetchingFeed = () => {
   return {
@@ -40,13 +40,12 @@ export const fetchAndHandlePostsIds = () => {
   }
 }
 
-//do i need this?
-//const addNewPostToFeed = (newPostId) => {
-//  return {
-//    type: ADD_NEW_POST_TO_FEED,
-//    newPostId,
-//  }
-//}
+export const addNewPostToFeed = (newPostId) => {
+  return {
+    type: ADD_NEW_POST_TO_FEED,
+    newPostId,
+  }
+}
 
 const initialState = {
   isFetching: true,
@@ -54,7 +53,7 @@ const initialState = {
   postsIds: [],
 }
 
-export default function feed (state= initialState, action) {
+export default function feed (state = initialState, action) {
   switch(action.type) {
     case FETCHING_FEED:
       return {
@@ -76,7 +75,7 @@ export default function feed (state= initialState, action) {
     case ADD_NEW_POST_TO_FEED:
       return {
         ...state,
-        postIds: state.postIds.unshift(action.newPostId)
+        postsIds: [].concat(action.newPostId, ...state.postsIds),
       }
     default:
       return state

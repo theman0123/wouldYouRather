@@ -1,4 +1,5 @@
 import { closeModal } from './modal'
+import { addNewPostToFeed } from './feed'
 import { savePost, fetchPost } from 'helpers/api'
 
 const FETCHING_POSTS = 'FETCHING_POSTS'
@@ -46,7 +47,9 @@ export const postFanout = (post) => {
     const uid = getState().user.authedId
     savePost(post)
       .then((postWithId) => {
+        const idOnly = postWithId.postId
         dispatch(addPost(postWithId))
+        dispatch(addNewPostToFeed(idOnly))
         dispatch(closeModal())
       })
       .catch((error) => {

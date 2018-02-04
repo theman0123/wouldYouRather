@@ -22,7 +22,7 @@ PostContainer.propTypes = {
 function mapStateToProps ({user, posts, userVoted}, props) {
   const postId = props.postId
   const uid = user.authedId
-  const votes = userVoted[uid]
+  
   return {
     post: posts[postId],
     hasVoted: userVoted[uid],
