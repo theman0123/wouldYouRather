@@ -10,9 +10,7 @@ import { Post } from 'components'
 class PostContainer extends Component {
   render() {
     return (
-      <Post
-        onClick={() => console.log('post clicked')}
-        {...this.props}/>
+      <Post {...this.props} />
     )
   }
 }
@@ -21,12 +19,13 @@ PostContainer.propTypes = {
   postId: PropTypes.string.isRequired,
 }
 
-function mapStateToProps ({posts}, props) {
+function mapStateToProps ({user, posts, userVoted}, props) {
+  const postId = props.postId
+  const uid = user.authedId
+  
   return {
-    post: posts[props.postId],
-//    hideLikeCount: true,
-//    userVoted: ,
-//    numberOfVotes: 2,
+    post: posts[postId],
+    hasVoted: userVoted[uid],
   }
 }
 

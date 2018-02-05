@@ -1,7 +1,7 @@
 {
   "name": "wouldyourather",
   "version": "1.0.0",
-  "description": "tylermcginnis course curriculum",
+  "description": "would you rather, a game of choices.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,12 +9,15 @@
     "production": "webpack -p",
     "lint": "eslint app/.; exit 0",
     "fix": "eslint --fix app/.; exit 0",
-    "build": "NODE_ENV='production' webpack -p"
+    "build": "NODE_ENV='production' webpack -p",
+    "firebase-init": "firebase init",
+    "deploy": "firebase deploy"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^4.9.0",
+    "firebase": "^4.9.1",
+    "firebase-tools": "^3.17.4",
     "history": "^4.7.2",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",

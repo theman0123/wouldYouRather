@@ -66,5 +66,14 @@
   {
     task: 'build postDetails component and container and have post link on click to said component and container...'
     time: .15,
-  }
+  },
+  {
+    task: 'get clicks to register inside of postDetails component, and hooked up to redux'.
+    time: 1.5,
+  },
+  {
+    task: 'fixed voteCount and userVoted to 1) set data on database, 2) set data in store. I decided to change the method for how it\'s currently operation.'
+    time: 2.0,
+  },
+  extraTime: 4 + 3 +
 }

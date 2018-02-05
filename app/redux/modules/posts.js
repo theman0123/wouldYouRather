@@ -1,5 +1,6 @@
 import { closeModal } from './modal'
-import { savePost } from 'helpers/api'
+import { addNewPostToFeed } from './feed'
+import { savePost, fetchPost } from 'helpers/api'
 
 const FETCHING_POSTS = 'FETCHING_POSTS'
 const FETCHING_POSTS_ERROR = 'FETCHING_POSTS_ERROR'
@@ -35,7 +36,7 @@ const addPost = (post) => {
   }
 }
 
-const removeFetchingPosts = () => {
+export const removeFetchingPosts = () => {
   return {
     type: REMOVE_FETCHING_POSTS,
   }
@@ -46,12 +47,24 @@ export const postFanout = (post) => {
     const uid = getState().user.authedId
     savePost(post)
       .then((postWithId) => {
+        const idOnly = postWithId.postId
         dispatch(addPost(postWithId))
+        dispatch(addNewPostToFeed(idOnly))
         dispatch(closeModal())
       })
       .catch((error) => {
         console.warn('error in postFanout', error)
     })
+  }
+}
+
+export function fetchAndHandlePost (postId) {
+  return function (dispatch) {
+    dispatch(fetchingPosts())
+    
+    fetchPost(postId)
+      .then((post) => dispatch(AddPost(post)))
+      .catch((error) => dispatch(fetchingPostsError(error)))
   }
 }
   

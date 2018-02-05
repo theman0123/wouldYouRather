@@ -1,0 +1,65 @@
+.optionsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.option1 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  background-color: lightblue;
+  color: white;
+  height: 200px;
+  width: 300px;
+  font-size: 30px;
+  padding: 15px;
+  padding-right: 25px;
+}
+
+.option2 {
+  composes: option1;
+  background-color: crimson;
+  padding-left: 25px;
+  padding-right: 5px;
+}
+
+.roundOr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: 50%;
+  background-color: gray;
+  color: white;
+  height: 50px;
+  width: 50px;
+}
+
+.vote {
+  position: absolute;
+  border-radius: 50%;
+  background-color: lightgreen;
+  height: 30px;
+  width: 30px;
+}
+
+.percentage {
+  color: gray;
+  font-size: 50px;
+  font-weight: 200;
+  text-align: center;
+}
+
+.agree {
+  color: darkgray;
+  font-size: 18px;
+}
+
+.originalQuestion {
+  color: inherit;
+  font-size: 16px;
+}
