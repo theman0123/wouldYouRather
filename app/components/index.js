@@ -7,3 +7,5 @@ export Main from './Main/Main'
 export Logout from './Logout/Logout'
 export Modal from './Modal/Modal'
 export Post from './Post/Post'
+export PostDetails from './PostDetails/PostDetails'
+

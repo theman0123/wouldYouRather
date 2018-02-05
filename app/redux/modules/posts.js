@@ -21,7 +21,7 @@ const fetchingPostsError = (error) => {
   }
 }
 
-const fetchingPostsSuccess = (postsIds) => {
+export const fetchingPostsSuccess = (postsIds) => {
   return {
     type: FETCHING_POSTS_SUCCESS,
     postsIds,
@@ -73,12 +73,18 @@ export default function posts (state = initialState, action) {
         error: action.error,
       }
     case ADD_POST:
-    case FETCHING_POSTS_SUCCESS:
       return {
         ...state,
         isFetching: false,
         error: '',
         [action.post.postId]: action.post,
+      }
+    case FETCHING_POSTS_SUCCESS:
+      return {
+        ...state,
+        ...action.postsIds,
+        isFetching: false,
+        error: '',
       }
     case REMOVE_FETCHING_POSTS:
       return {

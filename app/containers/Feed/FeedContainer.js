@@ -7,25 +7,32 @@ import * as feedActionCreators from 'redux/modules/feed'
 import { Feed } from 'components'
 
 class FeedContainer extends Component {
+  
+  componentDidMount() {
+    return this.props.fetchAndHandlePostsIds()
+  }
+  
   render() {
     return (
       <Feed 
         postTitle={this.props.postTitle}
         isFetching={this.props.isFetching}
-        error={this.props.error}/>
+        error={this.props.error}
+        postsIds={this.props.postsIds}/>
     )
   }
 }
 
 FeedContainer.propTypes = {
-  postIds: PropTypes.array.isRequired,
+  postsIds: PropTypes.array.isRequired,
   error: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  fetchAndHandlePostsIds: PropTypes.func.isRequired,
 }
 
 function mapStateToProps ({feed}) {
   return {
-    postIds: feed.postIds,
+    postsIds: feed.postsIds,
     error: feed.error,
     isFetching: feed.isFetching,
   }
