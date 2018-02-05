@@ -3,6 +3,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .option1 {
@@ -44,10 +45,6 @@
   background-color: lightgreen;
   height: 30px;
   width: 30px;
-/*
-  top: 0;
-  left: 5px;
-*/
 }
 
 .percentage {

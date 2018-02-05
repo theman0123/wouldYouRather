@@ -14,18 +14,6 @@ class PostDetailsContainer extends Component {
     const postId = this.props.match.params.postId
     
     this.props.initFetchVoteCount(postId)
-    if (this.props.postAlreadyFetched === false) {
-      this.props.fetchAndHandlePost(postId)
-    }
-    else this.props.removeFetchingPosts()
-  }
-  
-  option1Clicked (option) {
-    console.log(this.props, 1)
-  }
-  
-  option2Clicked (option) {
-    console.log( 2)
   }
   
   render() {
@@ -43,8 +31,9 @@ class PostDetailsContainer extends Component {
 
 PostDetailsContainer.propTypes = {
   post: PropTypes.object.isRequired,
-//  userVoted: PropTypes.number.isRequired,
-//  postAlreadyFetched: PropTypes.bool.isRequired,
+  option1Clicked: PropTypes.func.isRequired,
+  option2Clicked: PropTypes.func.isRequired,
+  userVoted: PropTypes.number.isRequired,
   voteCount: PropTypes.shape({
     0: PropTypes.number,
     1: PropTypes.number,
@@ -60,7 +49,6 @@ function mapStateToProps ({user, posts, voteCount, userVoted}, props) {
     post: posts[id],
     voteCount: voteCount[id],
     userVoted: votes[id] ? votes[id].selected : null,
-//    postAlreadFetched: !!posts[id]
   }
 }
 
